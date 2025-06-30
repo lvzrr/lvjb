@@ -99,3 +99,7 @@ This compiles to the native architecture of your machine, enabling any form of h
 ```bash
 cargo build --release
 ```
+
+## Releases
+
+Releases of this software are compiled using `release.sh`, that strips any data from the compiling machine left in the binary, and targets unknown linux x86_64 architectures, compiling with musl statically for maximum compatibility and compressed with upx for smaller binaries
