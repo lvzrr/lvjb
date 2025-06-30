@@ -341,7 +341,7 @@ pub fn  release(config: &mut Config) -> Result<(), Box<dyn std::error::Error>> {
     config.cache.releases.push(
        Release  {
                     cnf: Some(config.clone()),
-                    jar: Some(config.jar.clone()),
+                    jar: Some(out.clone()),
                 }
     ); 
     config.cache.write()?;
