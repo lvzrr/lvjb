@@ -339,10 +339,7 @@ pub fn  release(config: &mut Config) -> Result<(), Box<dyn std::error::Error>> {
     eprintln!("{GREEN}[RELEASE]{RESET} Created: {}", jar_path.display());
     fs::remove_file("MANIFEST.MF")?;
     config.cache.releases.push(
-       Release  {
-                    cnf: Some(config.clone()),
-                    jar: Some(out.clone()),
-                }
+        Some(out.clone())
     ); 
     config.cache.write()?;
     Ok(())

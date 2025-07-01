@@ -75,7 +75,6 @@ pub struct Config
     pub post_build_cmds:    Vec<String>,
     pub log_level:          u8,
     pub version:            String,
-    #[serde(skip)]
     pub cache:              Cache,
 
 }

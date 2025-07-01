@@ -1,37 +1,15 @@
 use std::collections::HashMap;
 use serde::{Serialize, Deserialize};
 use std::fs;
-use crate::config::Config;
 
 pub const CACHE_FILE: &str = "lvjb.lock";
-
-#[derive(Deserialize, Serialize, Debug, Clone)]
-#[serde(default)]
-pub struct Release
-{
-    #[serde(skip)]
-    pub cnf:            Option<Config>,
-    pub jar:            Option<String>,
-}
-
-impl Default for Release
-{
-    fn default() -> Self
-    {
-        Self
-        {
-            cnf:    None,
-            jar:    None,
-        }
-    }
-}
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(default)]
 pub struct Cache
 {
     pub files:        HashMap<String, String>,
-    pub releases:     Vec<Release>,
+    pub releases:     Vec<Option<String>>,
     pub url_libs:     Vec<String>,
 }
 
