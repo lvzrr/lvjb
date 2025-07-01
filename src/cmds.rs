@@ -313,6 +313,21 @@ pub fn curl(url: &String, config: &mut Config) -> Result<(), Box<dyn std::error:
 
 pub fn  release(config: &mut Config) -> Result<(), Box<dyn std::error::Error>> {
     build(Some(&"all".to_string()), config)?;
+    let combined_hash: u64 = config.cache.files
+        .values()
+        .filter_map(|x| x.parse::<u64>().ok())
+        .sum();
+    if config.cache.releases.iter().any(|x|
+        {
+            x.as_ref()
+            .and_then(|(_, s)| s.parse::<u64>().ok())
+            .map_or(false, |n| n == combined_hash)
+        }
+    )
+    {
+        return Err(format!("{RED}[RELEASE]{RESET} Cannot release the same build twice").into());
+    }
+
     let main_class = match &config.entry_point
     {
         Some(main) => main,
@@ -339,7 +354,7 @@ pub fn  release(config: &mut Config) -> Result<(), Box<dyn std::error::Error>> {
     eprintln!("{GREEN}[RELEASE]{RESET} Created: {}", jar_path.display());
     fs::remove_file("MANIFEST.MF")?;
     config.cache.releases.push(
-        Some(out.clone())
+        Some((out.clone(), combined_hash.to_string()))
     ); 
     config.cache.write()?;
     Ok(())

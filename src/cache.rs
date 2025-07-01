@@ -9,7 +9,7 @@ pub const CACHE_FILE: &str = "lvjb.lock";
 pub struct Cache
 {
     pub files:        HashMap<String, String>,
-    pub releases:     Vec<Option<String>>,
+    pub releases:     Vec<Option<(String, String)>>,
     pub url_libs:     Vec<String>,
 }
 
