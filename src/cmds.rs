@@ -362,10 +362,10 @@ pub fn  release(config: &mut Config) -> Result<(), Box<dyn std::error::Error>> {
 
 pub fn  help()
 {
-    println!("{GREEN}jmake - fast, minimal Java build + test tool{RESET}");
+    println!("{GREEN}lv's java build - fast, minimal Java build + test tool{RESET}");
     println!();
     println!("{ORANGE}Usage:{RESET}");
-    println!("  jmk <command> [args]");
+    println!("  lvjb <command> [args]");
     println!();
     println!("{ORANGE}Available Commands:{RESET}");
     println!("  init                       Initializes project structure and config");
@@ -386,12 +386,12 @@ pub fn  help()
     println!("  - Incremental builds use fast xxh3 hashing (not timestamps).");
     println!("  - Remote JARs via 'curl' are cached and reused.");
     println!("  - Release creates a JAR using 'jar' tool and Main-Class from config.");
-    println!("  - If jmk.toml or jmk.lock doesn't exist, they’re auto-generated.");
+    println!("  - If lvjb.toml or lvjb.lock doesn't exist, they’re auto-generated.");
     println!();
     println!("{ORANGE}Example:{RESET}");
-    println!("  jmk init");
-    println!("  jmk initpkg com.example.app");
-    println!("  jmk build com.example.app");
-    println!("  jmk run com.example.app.Main");
+    println!("  lvjb init");
+    println!("  lvjb initpkg com.example.app");
+    println!("  lvjb build com.example.app");
+    println!("  lvjb run com.example.app.Main");
     println!();
 }
