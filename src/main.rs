@@ -9,15 +9,30 @@ fn  main() -> Result<(), i32> {
     {
         Ok(x) => x,
         Err(_) =>
-            if !args.get(1).is_some_and(|x| x == &"init".to_string() || x == &"--help".to_string())
+            match args.get(1)
             {
-                eprintln!("{RED}[lvjb]{RESET} not a lvjb directory, run 'lvjb init' to initialize it, or run --help for more info");
-                return Err(1);
-            }
-            else
-            {
-                Config::default()
-            }
+                Some(x) if x == &"--help".to_string() =>
+                {
+                    cmds::help();
+                    return Ok(());
+                },
+                Some(x) if x != &"init".to_string() =>
+                {
+                    eprintln!("{RED}[lvjb]{RESET} not a lvjb directory, run 'lvjb init' to initialize it, or run --help for more info");
+                    return Err(1);
+                },
+                Some(x) if x == &"init".to_string() => Config::default(),
+                Some(_) =>
+                {
+                    eprintln!("{RED}[lvjb]{RESET} not a lvjb directory, run 'lvjb init' to initialize it, or run --help for more info");
+                    return Err(1);
+                }
+                None =>
+                {
+                    eprintln!("{RED}[lvjb]{RESET} not a lvjb directory, run 'lvjb init' to initialize it, or run --help for more info");
+                    return Err(1);
+                }
+            },
     };
     match args.get(1).map(String::as_str)
     {
@@ -142,10 +157,6 @@ fn  main() -> Result<(), i32> {
                 eprintln!("{e}");
                 return Err(1);
             }
-        }
-        Some("--help") =>
-        {
-            cmds::help();
         }
         Some(cmd) =>
         {
