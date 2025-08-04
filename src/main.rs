@@ -91,15 +91,23 @@ fn  main() -> Result<(), i32> {
 
             if let Ok(jvm) = spawn_jvm(&conf)
             {
-                let pkg = args.get(2);
-
+                let pkg = match args.get(2)
+                {
+                    Some(x) if x == "--" => match conf.entry_point
+                    {
+                        Some(ref s) => Some(s.to_string()),
+                        None => None,
+                    },
+                    Some(s) => Some(s.to_string()),
+                    None => None,
+                };
                 if let Some(pos) = extra_args_start
                 {
                     let user_args = args[pos + 1..].to_vec();
                     conf.args.runtime.get_or_insert_with(Vec::new).extend(user_args);
                 }
 
-                if let Err(e) = cmds::run(pkg.clone(), &mut conf, &jvm, true)
+                if let Err(e) = cmds::run(pkg.as_ref(), &mut conf, &jvm, true)
                 {
                     eprintln!("{e}");
                     return Err(1);
