@@ -160,12 +160,12 @@ fn  _main() -> Result<(), i32> {
         }
         Some(cmd) =>
         {
-            eprintln!("Unrecognized command: '{}'", cmd);
+            eprintln!("{RED}[lvjb]{RESET} Unrecognized command: '{}'", cmd);
             return Err(1);
         }
         None =>
         {
-            eprintln!("No command provided");
+            eprintln!("{RED}[lvjb]{RESET} No command provided");
             return Err(1);
         }
     }
