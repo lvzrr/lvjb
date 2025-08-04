@@ -3,7 +3,7 @@ use lvjb::{cmds, cmds::*};
 use lvjb::jvm::*;
 use std::env;
 
-fn  main() -> Result<(), i32> {
+fn  _main() -> Result<(), i32> {
     let args: Vec<String> = env::args().collect();
     let mut conf = match Config::load()
     {
@@ -170,4 +170,11 @@ fn  main() -> Result<(), i32> {
         }
     }
     Ok(())
+}
+
+fn main() {
+    std::process::exit(match _main() {
+        Ok(_) => 0,
+        Err(code) => code,
+    });
 }
